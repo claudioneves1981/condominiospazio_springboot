@@ -14,6 +14,7 @@ Após executar o comando acima, basta apenas abrir o seguinte endereço e visual
 
 ```
 http://localhost:8080/condominiospazio
+```
 
 São necessários os seguintes pré-requisitos para a execução do projeto:
 
@@ -41,4 +42,4 @@ Abaixo, seguem links dos principais recursos usados no projeto.
 * [Bootstrap](https://getbootstrap.com/)
 
 Site postado no Heroku
-http://condominiospazio.herokuapp.com/condominiospazio/
+(http://condominiospazio.herokuapp.com/condominiospazio/)
