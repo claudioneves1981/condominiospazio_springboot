@@ -67,19 +67,6 @@
       <artifactId>spring-boot-test-autoconfigure</artifactId>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.hackerrank.applications</groupId>
-      <artifactId>junit-ordered-test-runner</artifactId>
-      <version>1.0.1</version>
-      <scope>test</scope>
-    </dependency>
     
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 <dependency>
