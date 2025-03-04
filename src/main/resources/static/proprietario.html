@@ -25,15 +25,11 @@ html {
   <div class="col-md-6">
     
     
-  <label for="inputAddress" class="form-label">CPF </label><input type="text" class="form-control" id="cpf"  style="width: 223px; "><label for="inputAddress" class="form-label">Telefone </label><input type="text" class="form-control" id="telefone"  style="width: 115px; "><label for="inputAddress" class="form-label">Email  </label><input type="email" class="form-control" id="email"  style="width: 325px; "></div>
-  <div class="col-12"><div><input class="form-check-input" type="checkbox" id="grcodigoCheck"><label class="form-check-label" for="grcodigoCheck">
+  <label for="inputAddress" class="form-label">DOCUMENTO </label><input type="text" class="form-control" id="documento"  style="width: 223px; "><label for="inputAddress" class="form-label">Telefone </label><input type="text" class="form-control" id="telefone"  style="width: 115px; "><label for="inputAddress" class="form-label">Email  </label><input type="email" class="form-control" id="email"  style="width: 325px; "></div>
+  <div class="col-12"><div><input class="form-check-input" name="tipo" type="checkbox" id="tipo"><label class="form-check-label" for="grcodigoCheck">
         Não Mora no Condominio 
       </label>
       <label for="inputState" class="form-label"></label>
-    <select id="tipo" class="form-select">
-      <option selected>Proprietário</option>
-      <option>Inquilino</option>
-    </select>
     </div>
     <div>
     <label for="inputAddress" class="form-label">Endereço  </label><input type="text" class="form-control" id="endereco"  style="width: 382px; "/><label for="inputAddress2" class="form-label">Nº </label><input type="text" class="form-control" id="numero" style="width: 47px; "><label for="inputAddress2" class="form-label">Complemento</label><input type="text" class="form-control" id="complemento" style="width: 191px; ">
@@ -42,16 +38,16 @@ html {
  	</div>
   </div>
 </form>
-<button type="button" class="btn btn-primary" onclick="salvarUsuario()">Salvar</button>
+<button type="button" class="btn btn-primary" onclick="salvarProprietario()">Salvar</button>
 <button type="button" class="btn btn-secondary" onclick="document.getElementById('formCadastroProprietario').reset();">Novo</button>
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalPesquisarProprietario">Pesquisar</button>
-<button type="button" class="btn btn-warning" onclick="botaoDeletarDaTela();">Deletar</button>
+<button type="button" class="btn btn-warning" onclick="botaoDeletarProprietario();">Deletar</button>
 <button type="button" class="btn btn-dark"><a href = "index.html">Voltar</a></button>
 <div class="modal fade" id="modalPesquisarProprietario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hcodigoden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Pesquisa de Proprietario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -70,7 +66,7 @@ html {
       <th scope="col">Código</th>
       <th scope="col">Nome</th>
       <th scope="col">Telefone</th>
-      <th scope="col">CPF</th>
+      <th scope="col">DOCUMENTO</th>
       <th scope="col">Email</th>
       <th scope="col">Bloco</th>
       <th scope="col">Apartamento</th>
@@ -97,149 +93,6 @@ html {
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <script type = "text/javascript">
-    
-
-    function botaoDeletarDaTela(){
-    	var codigo = $('#codigo').val();
-    	if(codigo != null && codigo.trim()!=''){
-    	deleteProprietario(codigo);
-    	}
-    	document.getElementById('formCadastroProprietario').reset();
-    }
-    
-    function deleteProprietario(codigo){
-	
-	if(confirm('Deseja realmente deletar?')){
-    	
-    	$.ajax({
-	    		method: "DELETE",
-	    		url: "proprietariodelete",
-	    		data : "iduser=" + codigo ,
-	    		success: function(response){
-	    			$('#'+codigo).remove();
-	    			alert(response);
-	    		}
-	    	}).fail(function(xhr,status,errorThrown){
-	    		alert("Erro ao deletar usuario por codigo:" + xhr.responseText);
-	    	}); 
-		}
-    }
-    
-function colocarEmEdicao(codigo){
-    	
-    	$.ajax({
-	    		method: "GET",
-	    		url: "proprietariobuscaruserId",
-	    		data : "iduser=" + codigo ,
-	    		success: function(response){
-	    		$("#codigo").val(response.codigo);
-    			$("#nome").val(response.nome);
-    			$("#apto").val(response.apto);
-				$("#bloco").val(response.bloco);
-				$("#cpf").val(response.cpf);
-				$("#telefone").val(response.telefone);
-				$("#email").val(response.email);
-				$("#endereco").val(response.endereco);
-				$("#numero").val(response.numero);
-				$("#complemento").val(response.complemento);
-				$("#bairro").val(response.bairro);
-				$("#cep").val(response.cep);
-				$("#cidade").val(response.cidade);
-				$("#estado").val(response.estado);
-				$("#tipo option:selected").text(response.tipo);
-	    	    	
-	    	    	$("#modalPesquisarProprietario").modal('hide');
-	    		}
-	    	}).fail(function(xhr,status,errorThrown){
-	    		alert("Erro ao buscar usuario por codigo:" + xhr.responseText);
-	    	}); 
-    	
-    }
-    
-    function pesquisarProprietario(){
-  	  nome = $('#nomeBusca').val();
-  	  
-  	  if(nome != null && nome.trim()!= ''){
-  		  
-  		  $.ajax({
-  	    		method: "GET",
-  	    		url: "proprietariobuscarPorNome",
-  	    		data : "name=" + nome ,
-  	    		success: function(response){
-  	    			$('#tabelaresultados > tbody > tr').remove();
-  	    			for (var i = 0; i < response.length; i++){
-  	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'"><td>'+response[i].codigo+'</td><td>'+response[i].nome+'</td><td>'+response[i].telefone+'</td><td>'+response[i].cpf+'</td><td>'+response[i].email+'</td><td>'+response[i].bloco+'</td><td>'+response[i].apto+'</td><td>'+response[i].tipo+'</td><td><button type="button" class="btn btn-primary" onclick="colocarEmEdicao('+response[i].codigo+')">Ver</button></td><td><button type="button" class="btn btn-danger" onclick="deleteProprietario('+response[i].codigo+')">Delete</button></td></tr>');
-  	    			}
-  	    		}
-  	    	}).fail(function(xhr,status,errorThrown){
-  	    		alert("Erro ao buscar usuario:" + xhr.responseText);
-  	    	}); 
-  	  }
-    
-    }
-  function salvarUsuario(){
-    	
-    	var codigo = $("#codigo").val();
-    	var nome = $("#nome").val();
-	   	var apto = $("#apto").val();
-		var bloco = $("#bloco").val();
-		var cpf = $("#cpf").val();
-		var telefone = $("#telefone").val();
-		var email = $("#email").val();
-		var endereco = $("#endereco").val();
-		var numero = $("#numero").val();
-		var complemento = $("#complemento").val();
-		var bairro = $("#bairro").val();
-		var cep = $("cep").val();
-		var cidade = $("#cidade").val();
-		var estado = $("#estado").val();
-		var tipo = $("#tipo option:selected").text();
-    	
-    	if(nome == null || nome != null && nome.trim()==''){
-    		$("#nome").focus();
-    		alert('informe o nome');
-    		return;
-    	}
-    	
-    	
-		if(bloco == null || bloco != null && bloco.trim()==''){
-    		$("#bloco").focus();
-    		alert('informe o bloco');
-    		return;
-    	}
-    	
-    	if(apto == null || apto != null && apto.trim()==''){
-    		$("#apto").focus();
-    		alert('informe o apto');
-    		return;
-    	}
-    	
-    	if(cpf == null || cpf != null && cpf.trim()==''){
-    		$("#cpf").focus();
-    		alert('informe o cpf');
-    		return;
-    	}
-    	
-    	if(telefone == null || telefone != null && telefone.trim()==''){
-    		$("#telefone").focus();
-    		alert('informe o telefone');
-    		return;
-    	}
-    	
-    	$.ajax({
-    		method: "POST",
-    		url: "proprietariosalvar",
-    		data : JSON.stringify({codigo : codigo, nome : nome, telefone : telefone, cpf : cpf, email : email, endereco : endereco, numero : numero, bloco : bloco, apto : apto, complemento : complemento, cep : cep, bairro : bairro, cidade : cidade , estado : estado, tipo : tipo}),
-    		contentType: "application/json; charset=utf-8",
-    		success: function(response){
-    			$("#codigo").val(response.codigo);
-    			alert("Salvo com Sucesso!")
-    		}
-    	}).fail(function(xhr,status,errorThrown){
-    		alert("Erro ao Salvar:" + xhr.responseText);
-    	});
-    }
-    </script>
+    <script type = "text/javascript" src="script.js"></script>
 </body>
 </html>

@@ -1,17 +1,19 @@
 package br.com.springboot.condominiospazio.repository;
 
-import java.util.List;
-
-import br.com.springboot.condominiospazio.model.Pessoa;
-import br.com.springboot.condominiospazio.model.Proprietario;
+import br.com.springboot.condominiospazio.model.Visitante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface ProprietarioRepository extends JpaRepository<Proprietario, Long> {
+public interface VisitanteRepository extends JpaRepository<Visitante, Long> {
+
 
 	//@Query(nativeQuery = true, value = "select p from pessoa p where upper(trim(p.nome)) like %?1%")
-	List<Proprietario> findByNome(String nome);
+	List<Visitante> findByNome(String nome);
+
+	List<Visitante> findByTipo(String tipo);
 
 
 	//@Query(nativeQuery = true, value = "select p from pessoa p where upper(trim(p.tipo)) like %?1%")

@@ -26,61 +26,61 @@ import br.com.springboot.condominiospazio.repository.ProprietarioRepository;
  * A sample greetings controller to return greeting text
  */
 @RestController
+@RequestMapping("/proprietario")
 public class ProprietarioController {
 	
 	@Autowired
 	private ProprietarioRepository proprietarioRepository;
     /**
      *
-     * @param name the name to greet
      * @return greeting text
      */
     
-    @GetMapping(value = "proprietariolistatodos")
+    @GetMapping(value = "/listatodos")
     @ResponseBody
-    public ResponseEntity<List<Proprietario>> listaUsuario(){
+    public ResponseEntity<List<Proprietario>> listaProprietario(){
     	List<Proprietario> proprietarios = proprietarioRepository.findAll();
-    	return new ResponseEntity<List<Proprietario>>(proprietarios, HttpStatus.OK);
+    	return new ResponseEntity<>(proprietarios, HttpStatus.OK);
     
     }
     
-   @PostMapping(value = "proprietariosalvar")
+   @PostMapping(value = "/salvar")
    @ResponseBody
-    public ResponseEntity<Proprietario> salvar(@RequestBody Proprietario proprietario){
+    public ResponseEntity<Proprietario> salvarProprietario(@RequestBody Proprietario proprietario){
     	Proprietario prop = proprietarioRepository.save(proprietario);
-    	return new ResponseEntity<Proprietario>(prop, HttpStatus.CREATED);
+    	return new ResponseEntity<>(prop, HttpStatus.CREATED);
     }
    
-   @DeleteMapping(value = "proprietariodelete")
+   @DeleteMapping(value = "/delete")
    @ResponseBody
-    public ResponseEntity<String> delete(@RequestParam Long iduser){
-    	proprietarioRepository.deleteById(iduser);
-    	return new ResponseEntity<String>("Usuario deletado com sucesso", HttpStatus.OK);
+    public ResponseEntity<String> deleteProprietario(@RequestParam Long codigo){
+    	proprietarioRepository.deleteById(codigo);
+    	return new ResponseEntity<>("Proprietario deletado com sucesso", HttpStatus.OK);
     }
    
-   @GetMapping(value = "proprietariobuscaruserId")
+   @GetMapping(value = "/buscar")
    @ResponseBody
-    public ResponseEntity<Proprietario> buscaruserId(@RequestParam(name = "iduser") Long iduser){
-    	Proprietario proprietario = proprietarioRepository.findById(iduser).get();
+    public ResponseEntity<Proprietario> buscarProprietarioId(@RequestParam(name = "codigo") Long codigo){
+    	Proprietario proprietario = proprietarioRepository.findById(codigo).get();
     	return new ResponseEntity<Proprietario>(proprietario, HttpStatus.OK);
     }
    
-   @PutMapping(value = "proprietarioatualizar")
+   @PutMapping(value = "/atualizar")
    @ResponseBody
-    public ResponseEntity<?> buscaruserId(@RequestBody Proprietario proprietario){
+    public ResponseEntity<?> atualizarProprietario(@RequestBody Proprietario proprietario){
     	
 	   if(proprietario.getCodigo() == null) {
-		   return new ResponseEntity<String>("Codigo de Proprietário não foi informado para atualização", HttpStatus.OK);
+		   return new ResponseEntity<>("Codigo de Proprietário não foi informado para atualização", HttpStatus.OK);
 	   }
 	   
 	   Proprietario user = proprietarioRepository.saveAndFlush(proprietario);
-    	return new ResponseEntity<Proprietario>(user, HttpStatus.OK);
+    	return new ResponseEntity<>(user, HttpStatus.OK);
     }
    
-   @GetMapping(value = "proprietariobuscarPorNome")
+   @GetMapping(value = "/buscarpornome")
    @ResponseBody
-    public ResponseEntity<List<Proprietario>> buscarPorNome(@RequestParam(name = "name") String name){
-    	List<Proprietario> proprietario = proprietarioRepository.buscarPorNome(name.trim().toUpperCase());
-    	return new ResponseEntity<List<Proprietario>>(proprietario, HttpStatus.OK);
+    public ResponseEntity<List<Proprietario>> buscarProprietarioPorNome(@RequestParam(name = "nome") String nome){
+    	List<Proprietario> proprietario = proprietarioRepository.findByNome(nome);
+    	return new ResponseEntity<>(proprietario, HttpStatus.OK);
     }
 }

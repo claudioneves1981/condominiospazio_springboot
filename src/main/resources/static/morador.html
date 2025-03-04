@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Insert title here</title>
+    <style type ="text/css">
+        html {
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 5%;
+        }
+    </style>
+</head>
+<body>
+<h3>Cadastro Moradores</h3>
+
+<form class="row g-3" id ="formCadastroMorador">
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Código</label>
+        <input type="text" class="form-control" id="codigo"><label for="inputAddress" class="form-label">Nome </label><input type="text" class="form-control" id="nome"  style="width: 382px; "><label for="inputAddress2" class="form-label">Bloco</label><input type="text" class="form-control" id="bloco"style="width: 47px; "><label for="inputAddress2" class="form-label">Apto</label><input type="text" class="form-control" id="apto" style="width: 47px; ">
+    </div>
+    <div class="col-md-6">
+        <label for="inputAddress" class="form-label">DOCUMENTO </label><input type="text" class="form-control" id="documento"  style="width: 223px; "><label for="inputAddress" class="form-label">Telefone </label><input type="text" class="form-control" id="telefone"  style="width: 115px; "><label for="inputAddress" class="form-label">Email  </label><input type="email" class="form-control" id="email"  style="width: 325px; "></div>
+        <div>
+            <label for="inputAddress" class="form-label">Endereço  </label><input type="text" class="form-control" id="endereco"  style="width: 382px; "/><label for="inputAddress2" class="form-label">Nº </label><input type="text" class="form-control" id="numero" style="width: 47px; "><label for="inputAddress2" class="form-label">Complemento</label><input type="text" class="form-control" id="complemento" style="width: 191px; ">
+        </div>
+        <div>Bairro <input type="text" class="form-control" id="bairro"  style="width: 382px; "><label for="inputAddress2" class="form-label">CEP </label><input type="text" class="form-control" id="cep" style="width: 92px; "><label for="inputAddress2" class="form-label">Cidade </label><input type="text" class="form-control" id="ccodigoade" style="width: 92px; "><label for="inputAddress2" class="form-label">UF </label><input type="text" class="form-control" id="uf" style="width: 92px; ">
+        </div>
+    </div>
+</form>
+<button type="button" class="btn btn-primary" onclick="salvarMorador()">Salvar</button>
+<button type="button" class="btn btn-secondary" onclick="document.getElementById('formCadastroMorador').reset();">Novo</button>
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalPesquisarMorador">Pesquisar</button>
+<button type="button" class="btn btn-warning" onclick="botaoDeletarMorador();">Deletar</button>
+<button type="button" class="btn btn-dark"><a href = "index.html">Voltar</a></button>
+<div class="modal fade" id="modalPesquisarMorador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hcodigoden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pesquisa de Morador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="nomeBusca" class="col-form-label">Informe o Nome:</label>
+                        <input type="text" class="form-control" id="nomeBusca">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="pesquisarMorador()">Buscar</button>
+                </form>
+
+                <div style ="height: 300px; overflow: scroll;">
+                    <table class="table" id ="tabelaresultados">
+                        <thead>
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">DOCUMENTO</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Bloco</th>
+                            <th scope="col">Apartamento</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Delete</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<script type = "text/javascript" src="script.js"></script>
+</body>
+</html>
