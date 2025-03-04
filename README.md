@@ -41,5 +41,5 @@ Abaixo, seguem links dos principais recursos usados no projeto.
 * [Site oficial PostgreSQL](https://www.postgresql.org/)
 * [Bootstrap](https://getbootstrap.com/)
 
-Site postado no Heroku
-(http://condominiospazio.herokuapp.com/condominiospazio/)
+Projeto postado no Heroku
+(https://condominiospaziospringboot-production.up.railway.app/condominiospazio/)
