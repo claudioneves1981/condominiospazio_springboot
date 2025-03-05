@@ -61,20 +61,21 @@ function editarProprietario(codigo){
   		  $.ajax({
   	    		method: "GET",
   	    		url: "proprietario/buscarpornome",
-  	    		data : "name=" + nome ,
+  	    		data : "nome=" + nome ,
   	    		success: function(response){
   	    			$('#tabelaresultados > tbody > tr').remove();
   	    			for (var i = 0; i < response.length; i++){
-  	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">
-  	    				<td>'+response[i].codigo+'</td><td>'+response[i].nome+'</td>
-  	    				<td>'+response[i].telefone+'</td>
-  	    				<td>'+response[i].documento+'</td>
-  	    				<td>'+response[i].email+'</td>
-  	    				<td>'+response[i].bloco+'</td>
-  	    				<td>'+response[i].apto+'</td>
-  	    				<td>'+response[i].tipo+'</td>
-  	    				<td><button type="button" class="btn btn-primary" onclick="editarProprietario('+response[i].codigo+')">Ver</button></td>
-  	    				<td><button type="button" class="btn btn-danger" onclick="deleteProprietario('+response[i].codigo+')">Delete</button></td></tr>');
+  	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
+  	    				'<td>'+response[i].codigo+'</td>'+
+  	    				'<td>'+response[i].nome+'</td>'+
+  	    				'<td>'+response[i].telefone+'</td>'+
+  	    				'<td>'+response[i].documento+'</td>'+
+  	    				'<td>'+response[i].email+'</td>'+
+  	    				'<td>'+response[i].bloco+'</td>'+
+  	    				'<td>'+response[i].apto+'</td>'+
+  	    				'<td>'+response[i].tipo+'</td>'+
+  	    				'<td><button type="button" class="btn btn-primary" onclick="editarProprietario('+response[i].codigo+')">Ver</button></td>'+
+  	    				'<td><button type="button" class="btn btn-danger" onclick="deleteProprietario('+response[i].codigo+')">Delete</button></td></tr>');
   	    			}
   	    		}
   	    	}).fail(function(xhr,status,errorThrown){
@@ -101,13 +102,13 @@ function editarProprietario(codigo){
 		var estado = $("#estado").val();
 		var tipo = "";
 
-		if($('input[name="tipo"]').is(':checked')){
+		if($('input[nome="tipo"]').is(':checked')){
 
-		tipo = "Proprietario e Morador"
+		tipo = "PROPRIETARIO"
 
 		}else{
 
-		tipo = "Proprietário"
+		tipo = "PROPRIETARIO_MORADOR"
 
 		}
 
@@ -166,7 +167,7 @@ function editarProprietario(codigo){
     		        bairro : bairro,
     		        cidade : cidade ,
     		        estado : estado
-    		    }
+    		    },
     		    tipo : tipo
     		}),
     		contentType: "application/json; charset=utf-8",
@@ -235,20 +236,21 @@ function editarProprietario(codigo){
       		  $.ajax({
       	    		method: "GET",
       	    		url: "morador/buscarpornome",
-      	    		data : "name=" + nome ,
+      	    		data : "nome=" + nome ,
       	    		success: function(response){
       	    			$('#tabelaresultados > tbody > tr').remove();
       	    			for (var i = 0; i < response.length; i++){
-      	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">
-      	    				<td>'+response[i].codigo+'</td><td>'+response[i].nome+'</td>
-      	    				<td>'+response[i].contato.telefone+'</td>
-      	    				<td>'+response[i].documento+'</td>
-      	    				<td>'+response[i].contato.email+'</td>
-      	    				<td>'+response[i].apto.bloco+'</td>
-      	    				<td>'+response[i].apto.apto+'</td>
-      	    				<td>'+response[i].tipo+'</td>
-      	    				<td><button type="button" class="btn btn-primary" onclick="editarMorador('+response[i].codigo+')">Ver</button></td>
-      	    				<td><button type="button" class="btn btn-danger" onclick="deleteMorador('+response[i].codigo+')">Delete</button></td></tr>');
+      	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
+      	    				'<td>'+response[i].codigo+'</td>'+
+      	    				'<td>'+response[i].nome+'</td>'+
+      	    				'<td>'+response[i].contato.telefone+'</td>'+
+      	    				'<td>'+response[i].documento+'</td>'+
+      	    				'<td>'+response[i].contato.email+'</td>'+
+      	    				'<td>'+response[i].apto.bloco+'</td>'+
+      	    				'<td>'+response[i].apto.apto+'</td>'+
+      	    				'<td>'+response[i].tipo+'</td>'+
+      	    				'<td><button type="button" class="btn btn-primary" onclick="editarMorador('+response[i].codigo+')">Ver</button></td>'+
+      	    				'<td><button type="button" class="btn btn-danger" onclick="deleteMorador('+response[i].codigo+')">Delete</button></td></tr>');
       	    			}
       	    		}
       	    	}).fail(function(xhr,status,errorThrown){
@@ -266,7 +268,7 @@ function editarProprietario(codigo){
     		var documento = $("#documento").val();
     		var telefone = $("#telefone").val();
     		var email = $("#email").val();
-    		var tipo = "Morador";
+    		var tipo = "MORADOR";
 
         	if(nome == null || nome != null && nome.trim()==''){
         		$("#nome").focus();
@@ -382,11 +384,18 @@ function editarProprietario(codigo){
           		  $.ajax({
           	    		method: "GET",
           	    		url: "visitante/buscarpornome",
-          	    		data : "name=" + nome ,
+          	    		data : "nome=" + nome ,
           	    		success: function(response){
           	    			$('#tabelaresultados > tbody > tr').remove();
           	    			for (var i = 0; i < response.length; i++){
-          	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'"><td>'+response[i].codigo+'</td><td>'+response[i].nome+'</td><td>'+response[i].documento+'</td><td>'+response[i].tipo+'</td><td>'+response[i].observacao+'</td><td><button type="button" class="btn btn-primary" onclick="editarVisitante('+response[i].codigo+')">Ver</button></td><td><button type="button" class="btn btn-danger" onclick="deleteVisitante('+response[i].codigo+')">Delete</button></td></tr>');
+          	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
+          	    				'<td>'+response[i].codigo+'</td>'+
+          	    				'<td>'+response[i].nome+'</td>'+
+          	    				'<td>'+response[i].documento+'</td>'+
+          	    				'<td>'+response[i].tipo+'</td>'+
+          	    				'<td>'+response[i].observacao+'</td>'+
+          	    				'<td><button type="button" class="btn btn-primary" onclick="editarVisitante('+response[i].codigo+')">Ver</button></td>'+
+          	    				'<td><button type="button" class="btn btn-danger" onclick="deleteVisitante('+response[i].codigo+')">Delete</button></td></tr>');
           	    			}
           	    		}
           	    	}).fail(function(xhr,status,errorThrown){

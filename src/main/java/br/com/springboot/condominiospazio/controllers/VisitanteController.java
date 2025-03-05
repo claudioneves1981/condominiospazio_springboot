@@ -70,7 +70,7 @@ public class VisitanteController {
    @GetMapping(value = "/buscarpornome")
    @ResponseBody
     public ResponseEntity<List<Visitante>> buscarPorNome(@RequestParam(name = "nome") String nome){
-    	List<Visitante> visitante = visitanteRepository.findByNome(nome.trim().toUpperCase());
+    	List<Visitante> visitante = visitanteRepository.findByNome(nome);
     	return new ResponseEntity<List<Visitante>>(visitante, HttpStatus.OK);
     }
 }

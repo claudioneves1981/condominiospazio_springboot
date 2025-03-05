@@ -13,7 +13,7 @@ mvn spring-boot:run
 Após executar o comando acima, basta apenas abrir o seguinte endereço e visualizar a execução do projeto:
 
 ```
-http://localhost:8080/condominiospazio
+http://localhost:8080/
 ```
 
 São necessários os seguintes pré-requisitos para a execução do projeto:
@@ -41,5 +41,3 @@ Abaixo, seguem links dos principais recursos usados no projeto.
 * [Site oficial PostgreSQL](https://www.postgresql.org/)
 * [Bootstrap](https://getbootstrap.com/)
 
-Projeto postado no Heroku
-(https://condominiospaziospringboot-production.up.railway.app/condominiospazio/)
