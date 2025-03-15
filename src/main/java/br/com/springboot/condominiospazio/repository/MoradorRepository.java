@@ -12,15 +12,7 @@ import java.util.List;
 @Repository
 public interface MoradorRepository extends JpaRepository<Morador, Long> {
 
-
 	@Query(value = "SELECT obj FROM Morador obj WHERE LOWER(obj.nome) LIKE LOWER(CONCAT('%',:nome,'%')) and LOWER(obj.tipo) LIKE LOWER(CONCAT('%','MORADOR','%'))")
 	List<Morador> findByNome(@Param("nome") String nome);
-
-
-	//@Query(nativeQuery = true, value = "select p from pessoa p where upper(trim(p.tipo)) like %?1%")
-	//List<Visitante> buscarPorTipo(String tipo);
-
-
-
 
 }
