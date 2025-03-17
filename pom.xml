@@ -13,6 +13,9 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	<maven.test.skip>true</maven.test.skip>
+      <openapi.version>1.5.10</openapi.version>
+      <spring-cloud.version>2022.0.1</spring-cloud.version>
+
   </properties>
 
   <dependencyManagement>
@@ -21,6 +24,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>2.5.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -79,8 +89,14 @@
           <artifactId>lombok</artifactId>
           <scope>provided</scope>
       </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-openfeign</artifactId>
+    </dependency>
 
   </dependencies>
+
+
 
   <build>
     <pluginManagement>

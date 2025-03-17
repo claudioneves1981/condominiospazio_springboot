@@ -18,7 +18,9 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_pessoa")
+    @Column(name = "ID_PESSOA")
     private Long codigo;
+
     private String pesquisa;
 
     @Enumerated(EnumType.STRING)

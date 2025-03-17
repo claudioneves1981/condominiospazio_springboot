@@ -15,4 +15,7 @@ public interface MoradorRepository extends JpaRepository<Morador, Long> {
 	@Query(value = "SELECT obj FROM Morador obj WHERE LOWER(obj.nome) LIKE LOWER(CONCAT('%',:nome,'%')) and LOWER(obj.tipo) LIKE LOWER(CONCAT('%','MORADOR','%'))")
 	List<Morador> findByNome(@Param("nome") String nome);
 
+	List<Morador> findByDocumento(String cpf);
+
+
 }

@@ -1,7 +1,7 @@
 
          $.ajax({
           	  		method: "GET",
-          	  		url: "https://fipe.parallelum.com.br/api/v2/cars/brands",
+          	  		url: "brands",
           	  		success: function(response){
           	  			$('#brand > option').remove();
           	  			for (var i = 0; i < response.length; i++){
@@ -12,7 +12,7 @@
                            	          $(this).find("option").each(function () {
                            	            if ($(this).attr("selected")) {
                           				    var brand = $(this).val();
-                          					getModel("https://fipe.parallelum.com.br/api/v2/cars/brands", brand);
+                          					getModel("brands", brand);
                            	             $(this).removeAttr("selected");
                            	            }
                            	          });
@@ -53,14 +53,14 @@
            		})
           }
 
-         function editarMorador(codigo){
-         
-                 
-        
+         function pesqusarMorador(){
+
+              var cpf = $('#cpf').val();
+
                 	$.ajax({
             	    		method: "GET",
-            	    		url: "morador/buscar",
-            	    		data : "codigo=" + codigo ,
+            	    		url: "morador/buscarcpf",
+            	    		data : "cpf=" + cpf ,
             	    		success: function(response){
             	    		$("#codigo").val(response.codigo);
                 			$("#nome").val(response.nome);
@@ -107,11 +107,12 @@
         	    		url: "veiculo/buscar",
         	    		data : "codigo=" + codigo ,
         	    		success: function(response){
-        	    			$("#codigo").val(response.codigo);
-        	    	    	$("#nome").val(response.nome);
-        	    	    	$("#documento").val(response.documento);
-        	    	    	$("#tipo option:selected").text(response.tipo);
-        	    	    	$("#observacao").val(response.observacao);
+        	    			$("#codigo").val(response.morador.codigo);
+        	    	    	$("#nome").val(response.morador.nome);
+        	    	    	$("#brand option:selected").text(response.marca.name);
+        	    	    	$("#model option:selected").text(response.modelo.name);
+        	    	    	$("#cor").val(response.cor);
+        	    	    	$("#placa").val(response.placa);
         	    	    	$("#modalPesquisarVeiculo").modal('hide');
         	    		}
         	    	}).fail(function(xhr,status,errorThrown){
@@ -127,17 +128,18 @@
 
           		  $.ajax({
           	    		method: "GET",
-          	    		url: "veiculo/buscarpornome",
-          	    		data : "nome=" + nome ,
+          	    		url: "veiculo/buscarporplaca",
+          	    		data : "placa=" + placa ,
           	    		success: function(response){
           	    			$('#tabelaresultados > tbody > tr').remove();
           	    			for (var i = 0; i < response.length; i++){
           	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
-          	    				'<td>'+response[i].codigo+'</td>'+
-          	    				'<td>'+response[i].nome+'</td>'+
-          	    				'<td>'+response[i].documento+'</td>'+
-          	    				'<td>'+response[i].tipo+'</td>'+
-          	    				'<td>'+response[i].observacao+'</td>'+
+          	    				'<td>'+response[i].morador.codigo+'</td>'+
+          	    				'<td>'+response[i].morador.nome+'</td>'+
+          	    				'<td>'+response[i].marca.name+'</td>'+
+          	    				'<td>'+response[i].modelo.name+'</td>'+
+          	    				'<td>'+response[i].cor+'</td>'+
+          	    				'<td>'+response[i].placa+'</td>'+
           	    				'<td><button type="button" class="btn btn-primary" onclick="editarVeiculo('+response[i].codigo+')">Ver</button></td>'+
           	    				'<td><button type="button" class="btn btn-danger" onclick="deleteVeiculo('+response[i].codigo+')">Delete</button></td></tr>');
           	    			}
@@ -152,10 +154,10 @@
 
             	var codigo = $("#codigo").val();
             	var nome = $("#nome").val();
-            	var documento = $("#documento").val();
-            	var tipo = $("#tipo option:selected").text();
-            	var observacao = $("#observacao").val();
-
+            	var marca = $("#brand option:selected").text();
+            	var modelo = $("#modelo option:selected").text();
+            	var cor = $("#cor").val();
+            	var placa = $("#placa").val();
 
             	if(nome == null || nome != null && nome.trim()==''){
             		$("#nome").focus();

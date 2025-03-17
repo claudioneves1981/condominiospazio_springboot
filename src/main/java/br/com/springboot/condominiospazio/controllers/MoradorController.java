@@ -72,4 +72,11 @@ public class MoradorController {
         List<Morador> morador = moradorRepository.findByNome(nome);
         return new ResponseEntity<>(morador, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/buscarcpf")
+    @ResponseBody
+    public ResponseEntity<List<Morador>> buscarMoradorPorCpf(@RequestParam(name = "cpf") String cpf) {
+        List<Morador> morador = moradorRepository.findByDocumento(cpf);
+        return new ResponseEntity<>(morador, HttpStatus.OK);
+    }
 }
