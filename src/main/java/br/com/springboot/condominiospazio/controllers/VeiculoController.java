@@ -2,6 +2,7 @@ package br.com.springboot.condominiospazio.controllers;
 
 import java.util.List;
 
+import br.com.springboot.condominiospazio.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import br.com.springboot.condominiospazio.repository.VeiculoRepository;
 public class VeiculoController {
 
     @Autowired
-    private VeiculoRepository veiculoRepository;
+    private VeiculoService veiculoService;
 
     /**
      * @return greeting text
@@ -26,34 +27,34 @@ public class VeiculoController {
 
     @GetMapping(value = "/listatodos")
     @ResponseBody
-    public ResponseEntity<List<Veiculo>> listaVeiculo() {
-        List<Veiculo> veiculos = veiculoRepository.findAll();
+    public ResponseEntity<List<Veiculo>> listaVeiculos() {
+        List<Veiculo> veiculos = veiculoService.listaVeiculos();
         return new ResponseEntity<>(veiculos, HttpStatus.OK);
 
     }
 
-    @PostMapping(value = "/salvar")
+    @PostMapping(value = "/salvar/{cpf}")
     @ResponseBody
-    public ResponseEntity<Veiculo> salvarVeiculo(@RequestBody Veiculo veiculo) {
-        Veiculo prop = veiculoRepository.save(veiculo);
-        return new ResponseEntity<>(prop, HttpStatus.CREATED);
+    public ResponseEntity<String> salvarVeiculo(@PathVariable(value = "cpf") String cpf, @RequestBody Veiculo veiculo) {
+        veiculoService.salvarVeiculo(cpf, veiculo);
+        return new ResponseEntity<>("Veiculo Salvo com Sucesso", HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/delete/{cpf}/{id}")
     @ResponseBody
-    public ResponseEntity<String> deleteVeiculo(@RequestParam Long codigo) {
-        veiculoRepository.deleteById(codigo);
+    public ResponseEntity<String> deleteVeiculo(@PathVariable String cpf, @PathVariable Long id) {
+        veiculoService.deleteVeiculo(cpf,id);
         return new ResponseEntity<>("Usuario deletado com sucesso", HttpStatus.OK);
     }
 
     @GetMapping(value = "/buscar")
     @ResponseBody
     public ResponseEntity<Veiculo> buscarVeiculoId(@RequestParam(name = "codigo") Long codigo) {
-        Veiculo veiculo = veiculoRepository.findById(codigo).get();
-        return new ResponseEntity<Veiculo>(veiculo, HttpStatus.OK);
+        Veiculo veiculo = veiculoService.buscarVeiculoId(codigo);
+        return new ResponseEntity<>(veiculo, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/atualizar")
+    /*@PutMapping(value = "/atualizar")
     @ResponseBody
     public ResponseEntity<?> atualizarVeiculo(@RequestBody Veiculo veiculo) {
 
@@ -63,12 +64,12 @@ public class VeiculoController {
 
         Veiculo user = veiculoRepository.saveAndFlush(veiculo);
         return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping(value = "/buscarporplaca")
     @ResponseBody
-    public ResponseEntity<List<Veiculo>> buscarVeiculoPorPlaca(@RequestParam(name = "placa") String placa) {
-        List<Veiculo> veiculo = veiculoRepository.findByPlaca(placa);
+    public ResponseEntity<Veiculo> buscarVeiculoPorPlaca(@RequestParam(name = "placa") String placa) {
+       Veiculo veiculo = veiculoService.buscarVeiculoPorPlaca(placa);
         return new ResponseEntity<>(veiculo, HttpStatus.OK);
     }
 }

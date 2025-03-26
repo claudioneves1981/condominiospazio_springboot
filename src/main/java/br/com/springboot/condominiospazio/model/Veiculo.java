@@ -26,16 +26,9 @@ public class Veiculo {
     private String cor;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
-    @JoinTable(name="TB_MARCA_VEICULO",joinColumns =
-    @JoinColumn( name = "ID_VEICULO",referencedColumnName="ID_VEICULO"),
-            inverseJoinColumns = @JoinColumn(name = "ID_MARCA",referencedColumnName="ID_MARCA"))
-    private Marca marca;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinTable(name="TB_MODELO_VEICULO",joinColumns =
     @JoinColumn( name = "ID_VEICULO",referencedColumnName="ID_VEICULO"),
             inverseJoinColumns = @JoinColumn(name = "ID_MODELO",referencedColumnName="ID_MODELO"))
-
     private Modelo modelo;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})

@@ -76,20 +76,23 @@
         
          function botaoDeletarVeiculo(){
             	var codigo = $('#codigo').val();
-            	if(codigo != null && codigo.trim()!=''){
-            	deleteVeiculo(codigo);
+            	var cpf = $('#cpf').val();
+            	if((codigo != null && codigo.trim()!='') && (cpf != null && cpf.trim()!='')){
+            	deleteVeiculo(codigo, cpf);
             	}
             	document.getElementById('formCadastroVeiculo').reset();
             }
 
-            function deleteVeiculo(codigo){
+            function deleteVeiculo(codigo, cpf){
+
+            url = "veiculo/delete/"+cpf+"/"+codigo;
 
         	if(confirm('Deseja realmente deletar?')){
 
             	$.ajax({
         	    		method: "DELETE",
-        	    		url: "veiculo/delete",
-        	    		data : "codigo=" +codigo ,
+        	    		url: url,
+
         	    		success: function(response){
         	    			$('#'+codigo).remove();
         	    			alert(response);
@@ -153,28 +156,28 @@
           function salvarVeiculo(){
 
             	var codigo = $("#codigo").val();
-            	var nome = $("#nome").val();
+            	var cpf = $("cpf").val();
             	var marca = $("#brand option:selected").text();
             	var modelo = $("#modelo option:selected").text();
             	var cor = $("#cor").val();
             	var placa = $("#placa").val();
 
-            	if(nome == null || nome != null && nome.trim()==''){
-            		$("#nome").focus();
-            		alert('informe o nome');
-            		return;
-            	}
-
-            	if(documento == null || documento != null && documento.trim()==''){
-            		$("#documento").focus();
-            		alert('informe o documento');
-            		return;
-            	}
+            	url = "veiculo/salvar/"+cpf;
 
             	$.ajax({
             		method: "POST",
-            		url: "veiculo/salvar",
-            		data : JSON.stringify({codigo : codigo, nome : nome, documento : documento, tipo : tipo, observacao : observacao}),
+            		url: url,
+            		data : JSON.stringify({
+            		veiculo : {
+            		    modelo : {
+            		    name : modelo,
+            		    marca : {
+            		        name : marca
+            		        }
+            		    cor : cor,
+            		    placa : placa
+            		    },
+            		}),
             		contentType: "application/json; charset=utf-8",
             		success: function(response){
             			$("#codigo").val(response.codigo);
