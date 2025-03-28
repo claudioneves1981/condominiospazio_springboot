@@ -133,7 +133,6 @@
         		        telefone : telefone,
         		        email : email
         		    },
-        		    numero : numero,
         		    apto : {
         		        bloco : bloco,
         		        apto : apto

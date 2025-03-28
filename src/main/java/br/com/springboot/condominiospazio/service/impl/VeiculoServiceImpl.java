@@ -8,10 +8,12 @@ import br.com.springboot.condominiospazio.repository.MoradorRepository;
 import br.com.springboot.condominiospazio.repository.VeiculoRepository;
 import br.com.springboot.condominiospazio.service.VeiculoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class VeiculoServiceImpl implements VeiculoService {
 
 
@@ -28,6 +30,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
             Morador morador = moradorRepository.findByDocumento(cpf);
             List<Veiculo> veiculoList = morador.getVeiculos();
+            veiculo.setMorador(morador.getNome());
             veiculoList.add(veiculo);
             morador.setVeiculos(veiculoList);
             moradorRepository.save(morador);
