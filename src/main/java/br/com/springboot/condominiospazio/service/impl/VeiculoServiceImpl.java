@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,10 +31,32 @@ public class VeiculoServiceImpl implements VeiculoService {
 
             Morador morador = moradorRepository.findByDocumento(cpf);
             List<Veiculo> veiculoList = morador.getVeiculos();
-            veiculo.setMorador(morador.getNome());
-            veiculoList.add(veiculo);
-            morador.setVeiculos(veiculoList);
-            moradorRepository.save(morador);
+
+
+            if(veiculo.getId() == null) {
+
+                veiculo.setMorador(morador.getNome());
+                veiculoList.add(veiculo);
+                morador.setVeiculos(veiculoList);
+                moradorRepository.save(morador);
+
+            } else {
+
+                for(Veiculo veiculotemp : veiculoList){
+
+                    if (Objects.equals(veiculotemp.getId(), veiculo.getId())){
+                        veiculoList.remove(veiculotemp);
+                        veiculoRepository.delete(veiculotemp);
+                        veiculo.setMorador(morador.getNome());
+                        veiculoList.add(veiculo);
+                        morador.setVeiculos(veiculoList);
+                        moradorRepository.save(morador);
+                        break;
+                    }
+
+                }
+
+            }
 
         } catch(PessoaNaoEncontradaException re){
             throw re;

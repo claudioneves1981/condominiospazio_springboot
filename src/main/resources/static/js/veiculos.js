@@ -86,7 +86,6 @@
         	    		method: "DELETE",
         	    		url: url,
         	    		success: function(response){
-        	    			$('#'+codigo).remove();
         	    			alert(response);
         	    		}
         	    }).fail(function(xhr,status,errorThrown){
