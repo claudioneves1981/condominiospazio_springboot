@@ -44,7 +44,9 @@
                         <label for="nomeBusca" class="col-form-label">Informe o Nome:</label>
                         <input type="text" class="form-control" id="nomeBusca">
                     </div>
-                    <button type="button" class="btn btn-success" onclick="pesquisarMorador()">Buscar</button>
+                    <button type="button" class="btn btn-success" onclick="pesquisarMorador()">Buscar Morador por Nome</button>
+                    <button type="button" class="btn btn-danger" onclick="pesquisarTodosMoradores()">Buscar Todos Moradores</button>
+
                 </form>
 
                 <div style ="height: 300px; overflow: scroll;">
@@ -52,6 +54,7 @@
                         <thead>
                         <tr>
                             <th scope="col">Código</th>
+                            <th scope="col">Data de Cadastro</th>
                             <th scope="col">Nome</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Documento</th>

@@ -67,6 +67,7 @@ function editarProprietario(codigo){
   	    			for (var i = 0; i < response.length; i++){
   	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
   	    				'<td>'+response[i].codigo+'</td>'+
+  	    				'<td>'+response[i].dataCadastro+'</td>'+
   	    				'<td>'+response[i].nome+'</td>'+
   	    				'<td>'+response[i].contato.telefone+'</td>'+
   	    				'<td>'+response[i].documento+'</td>'+
@@ -84,6 +85,33 @@ function editarProprietario(codigo){
   	  }
 
     }
+
+    function pesquisarTodosProprietarios(){
+
+      		  $.ajax({
+      	    		method: "GET",
+      	    		url: "proprietario/listatodos",
+      	    		success: function(response){
+      	    			$('#tabelaresultados > tbody > tr').remove();
+      	    			for (var i = 0; i < response.length; i++){
+      	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].codigo+'">'+
+      	    				'<td>'+response[i].codigo+'</td>'+
+      	    				'<td>'+response[i].dataCadastro+'</td>'+
+      	    				'<td>'+response[i].nome+'</td>'+
+      	    				'<td>'+response[i].contato.telefone+'</td>'+
+      	    				'<td>'+response[i].documento+'</td>'+
+      	    				'<td>'+response[i].contato.email+'</td>'+
+      	    				'<td>'+response[i].apto.bloco+'</td>'+
+      	    				'<td>'+response[i].apto.apto+'</td>'+
+      	    				'<td>'+response[i].tipo+'</td>'+
+      	    				'<td><button type="button" class="btn btn-primary" onclick="editarProprietario('+response[i].codigo+')">Ver</button></td>'+
+      	    				'<td><button type="button" class="btn btn-danger" onclick="deleteProprietario('+response[i].codigo+')">Delete</button></td></tr>');
+      	    			}
+      	    		}
+      	    	}).fail(function(xhr,status,errorThrown){
+      	    		alert("Erro ao buscar proprietario:" + xhr.responseText);
+      	    	});
+        }
   function salvarProprietario(){
 
     	var codigo = $("#codigo").val();

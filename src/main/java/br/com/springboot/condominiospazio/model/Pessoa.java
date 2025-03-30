@@ -29,7 +29,6 @@ public class Pessoa {
     private String nome;
     private String documento;
 
-    private LocalDate dataCadastro;
-
+    private LocalDate dataCadastro = LocalDate.now();
 
 }
