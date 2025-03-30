@@ -40,10 +40,10 @@ public class VeiculoController {
         return new ResponseEntity<>("Veiculo Salvo com Sucesso", HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/delete/{cpf}/{id}")
+    @DeleteMapping(value = "/delete/{id_morador}/{id}")
     @ResponseBody
-    public ResponseEntity<String> deleteVeiculo(@PathVariable String cpf, @PathVariable Long id) {
-        veiculoService.deleteVeiculo(cpf,id);
+    public ResponseEntity<String> deleteVeiculo(@PathVariable Long id_morador, @PathVariable Long id) {
+        veiculoService.deleteVeiculo(id_morador,id);
         return new ResponseEntity<>("Usuario deletado com sucesso", HttpStatus.OK);
     }
 
@@ -71,5 +71,12 @@ public class VeiculoController {
     public ResponseEntity<Veiculo> buscarVeiculoPorPlaca(@RequestParam(name = "placa") String placa) {
        Veiculo veiculo = veiculoService.buscarVeiculoPorPlaca(placa);
         return new ResponseEntity<>(veiculo, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/buscarpormorador")
+    @ResponseBody
+    public ResponseEntity<List<Veiculo>> buscarVeiculoPorMorador(@RequestParam(name = "morador") String morador) {
+        List<Veiculo> veiculos = veiculoService.buscarVeiculoPorMorador(morador);
+        return new ResponseEntity<>(veiculos, HttpStatus.OK);
     }
 }

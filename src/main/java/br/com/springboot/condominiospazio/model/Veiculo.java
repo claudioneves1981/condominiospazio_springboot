@@ -33,4 +33,6 @@ public class Veiculo {
 
     private String morador;
 
+    private Long id_morador;
+
 }

@@ -76,9 +76,9 @@
          }
 
 
-         function deleteVeiculo(codigo, cpf){
+         function deleteVeiculo(id, id_morador){
 
-            url = "veiculo/delete/"+cpf+"/"+codigo;
+            url = "veiculo/delete/"+id_morador+"/"+id;
 
         	if(confirm('Deseja realmente deletar?')){
 
@@ -102,6 +102,8 @@
         	    		url: "veiculo/buscar",
         	    		data : "codigo=" + codigo ,
         	    		success: function(response){
+        	    		    $("#codigo").val(response.documento);
+                            $("#nome").val(response.nome);
         	    		    $("#id").val(response.id);
         	    	    	$("#brand option:selected").text(response.modelo.marca.name);
         	    	    	$("#model option:selected").text(response.modelo.name);
@@ -118,27 +120,27 @@
 
         function pesquisarVeiculo(){
 
-          	  placa= $('#nomeBusca').val();
+          	  morador= $('#nomeBusca').val();
           	  codigo = $('#codigo').val();
 
-          	  if(placa != null && placa.trim()!= ''){
+          	  if(morador != null && morador.trim()!= ''){
 
           		  $.ajax({
           	    		method: "GET",
-          	    		url: "veiculo/buscarporplaca",
-          	    		data : "placa=" + placa ,
+          	    		url: "veiculo/buscarpormorador",
+          	    		data : "morador=" + morador ,
           	    		success: function(response){
           	    			$('#tabelaresultados > tbody > tr').remove();
-          	    			//for (var i = 0; i < response.length; i++){
-          	    				$('#tabelaresultados > tbody').append('<tr id="'+response.id+'">'+
-          	    				'<td>'+response.morador+'</td>'+
-          	    				'<td>'+response.modelo.name+'</td>'+
-          	    				'<td>'+response.modelo.marca.name+'</td>'+
-          	    				'<td>'+response.cor+'</td>'+
-          	    				'<td>'+response.placa+'</td>'+
-          	    				'<td><button type="button" class="btn btn-primary" onclick="editarVeiculo('+response.id+')">Ver</button></td>'+
-          	    				'<td><button type="button" class="btn btn-danger" onclick="deleteVeiculo('+response.id+','+codigo+')">Delete</button></td></tr>');
-          	    			//}
+          	    			for (var i = 0; i < response.length; i++){
+          	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].id+'">'+
+          	    				'<td>'+response[i].morador+'</td>'+
+          	    				'<td>'+response[i].modelo.name+'</td>'+
+          	    				'<td>'+response[i].modelo.marca.name+'</td>'+
+          	    				'<td>'+response[i].cor+'</td>'+
+          	    				'<td>'+response[i].placa+'</td>'+
+          	    				'<td><button type="button" class="btn btn-primary" onclick="editarVeiculo('+response[i].id+')">Ver</button></td>'+
+          	    				'<td><button type="button" class="btn btn-danger" onclick="deleteVeiculo('+response[i].id+','+response[i].id_morador+')">Delete</button></td></tr>');
+          	    			}
           	    		}
           	      }).fail(function(xhr,status,errorThrown){
           	    		alert("Erro ao buscar veiculo:" + xhr.responseText);
@@ -146,6 +148,29 @@
           	  }
 
         }
+
+        function pesquisarTodosVeiculos(){
+
+                  		  $.ajax({
+                  	    		method: "GET",
+                  	    		url: "veiculo/listatodos",
+                  	    		success: function(response){
+                  	    			$('#tabelaresultados > tbody > tr').remove();
+                  	    			for (var i = 0; i < response.length; i++){
+                  	    				$('#tabelaresultados > tbody').append('<tr id="'+response[i].id+'">'+
+                  	    				'<td>'+response[i].morador+'</td>'+
+                  	    				'<td>'+response[i].modelo.name+'</td>'+
+                  	    				'<td>'+response[i].modelo.marca.name+'</td>'+
+                  	    				'<td>'+response[i].cor+'</td>'+
+                  	    				'<td>'+response[i].placa+'</td>'+
+                  	    				'<td><button type="button" class="btn btn-primary" onclick="editarVeiculo('+response[i].id+')">Ver</button></td>'+
+                  	    				'<td><button type="button" class="btn btn-danger" onclick="deleteVeiculo('+response[i].id+','+response[i].id_morador+')">Delete</button></td></tr>');
+                  	    			}
+                  	    		}
+                  	      }).fail(function(xhr,status,errorThrown){
+                  	    		alert("Erro ao buscar veiculos:" + xhr.responseText);
+                  	      });
+                }
 
         function salvarVeiculo(){
 

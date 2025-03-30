@@ -12,10 +12,12 @@ public interface VeiculoService {
 
     List<Veiculo> listaVeiculos();
 
-    void deleteVeiculo(String cpf, Long id);
+    void deleteVeiculo(Long id_morador, Long id);
 
     Veiculo buscarVeiculoId(Long id);
 
     Veiculo buscarVeiculoPorPlaca(String placa);
+
+    List<Veiculo> buscarVeiculoPorMorador(String morador);
 
 }

@@ -38,6 +38,7 @@ public class VeiculoServiceImpl implements VeiculoService {
                 veiculo.setMorador(morador.getNome());
                 veiculoList.add(veiculo);
                 morador.setVeiculos(veiculoList);
+                veiculo.setId_morador(morador.getCodigo());
                 moradorRepository.save(morador);
 
             } else {
@@ -48,6 +49,7 @@ public class VeiculoServiceImpl implements VeiculoService {
                         veiculoList.remove(veiculotemp);
                         veiculoRepository.delete(veiculotemp);
                         veiculo.setMorador(morador.getNome());
+                        veiculo.setId_morador(morador.getCodigo());
                         veiculoList.add(veiculo);
                         morador.setVeiculos(veiculoList);
                         moradorRepository.save(morador);
@@ -70,9 +72,10 @@ public class VeiculoServiceImpl implements VeiculoService {
     }
 
     @Override
-    public void deleteVeiculo(String cpf, Long id) throws VeiculoNaoEncontradoException {
+    public void deleteVeiculo(Long id_morador , Long id){
 
-        Morador morador = moradorRepository.findByDocumento(cpf);
+        Morador morador = moradorRepository.findById(id_morador).
+                orElseThrow(() -> new PessoaNaoEncontradaException("Pessoa Not Found"));
         Veiculo veiculo = veiculoRepository.findById(id).
                 orElseThrow(()-> new VeiculoNaoEncontradoException("Vehicle Not Found"));
         morador.getVeiculos().remove(veiculo);
@@ -94,6 +97,12 @@ public class VeiculoServiceImpl implements VeiculoService {
     public Veiculo buscarVeiculoPorPlaca(String placa) {
         return veiculoRepository.findByPlaca(placa);
     }
+
+
+   public List<Veiculo> buscarVeiculoPorMorador(String morador){
+        return veiculoRepository.findByMorador(morador);
+
+   }
 
 
 }
